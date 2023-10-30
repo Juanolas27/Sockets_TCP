@@ -6,4 +6,7 @@ servidor = clases.servidor(HOST,PORT, 10)
 
 while True:
     servidor.esperadorConexion()
-    servidor.enviadorDatos(servidor.recibidorDatos())
+    data = servidor.recibidorDatos()
+    if data == 1:
+        pass
+
