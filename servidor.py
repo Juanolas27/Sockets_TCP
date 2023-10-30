@@ -8,5 +8,8 @@ while True:
     servidor.esperadorConexion()
     data = servidor.recibidorDatos()
     if data == 1:
-        pass
-
+        username = input("Nombre del usuario: ")
+        password = input("Contraseña: ")
+        email = input("Email: ")
+        database = clases.database
+        database.create_user(username, password, email)
