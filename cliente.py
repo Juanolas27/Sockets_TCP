@@ -19,7 +19,6 @@ while True:
     cliente.enviadorInformacion(input("Qué quieres que haga (1, 2, 3, 4, 5 or 6): "))
     data = cliente.recibidorInformacion()
     print(data)
-
-cliente.cerradorConexion()
+    cliente.cerradorConexion()
 
 

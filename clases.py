@@ -18,7 +18,6 @@ class servidor:
 
     def recibidorDatos(self):
         datos = self.conn.recv(1024)
-        print(datos.decode('utf-8'))
         return datos.decode('utf-8')
   
 
@@ -60,13 +59,13 @@ class database:
     def cargar_clave():
         return open("clave.key","rb").read()
 
-    def create_user  (self, username, password, email):
+    def create_user(self, username, password, email):
         self.username = username
+        self.contraseña = Fernet(clave).encrypt(password.encode())
+        self.email = email
         clave = Fernet.generate_key()
         with open("clave.key", "wb") as archivo_clave:
             archivo_clave.write(self.username + ":" + clave)
-        self.contraseña = Fernet(clave).encrypt(password.encode())
-        self.email = email
         pointer = self.conection.cursor()
         pointer.execute("USE users")
         pointer.execute("INSERT INTO users (nombre, contraseña, token, email) VALUES (%s, %s, %s, %s)")%(self.username, self.contraseña, clave, self.email)
