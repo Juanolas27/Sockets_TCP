@@ -73,6 +73,7 @@ class database:
         query2 = (self.username, self.contraseña, self.email)
         pointer.execute(query1, query2)
         self.conection.commit()
+        os.mkdir(username)
 
     def forgot_password(self, username):
         with open("clave.key", "r") as fichero:
