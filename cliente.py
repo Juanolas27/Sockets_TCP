@@ -16,9 +16,18 @@ while True:
         5. Create sub folder
         6. Delete User
     ''')
+    pija = False
     cliente.enviadorInformacion(input("Qué quieres que haga (1, 2, 3, 4, 5 or 6): "))
-    data = cliente.recibidorInformacion()
-    print(data)
+    if cliente.recibidorInformacion() == "1":
+
+        nombre = input("Nombre: ")
+        contrasena = input("Contrasena: ")
+        email = input("Email: ")
+        array = [nombre, contrasena, email]
+        for mensaje in array:
+            cliente.enviadorInformacion(mensaje)
+
+
     cliente.cerradorConexion()
 
 

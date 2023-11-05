@@ -8,6 +8,13 @@ while True:
     servidor.esperadorConexion()
     data = servidor.recibidorDatos()
     if data == "1":
+        servidor.enviadorDatos(data) 
+        print(data)
+        data = servidor.recibidorDatos()
+        nombre = data[0]
+        contrasena = data[1]
+        correo = data[2]
+        print(data, nombre, contrasena, correo)
         database = clases.database()
-        database.create_user(input("Nombre del usuario: "), input("Contraseña: "), input("Email: "))
+        database.create_user(nombre, contrasena, correo)
     servidor.conn.close()
