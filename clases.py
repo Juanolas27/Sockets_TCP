@@ -1,6 +1,7 @@
 import  socket
 import mysql.connector
 from cryptography.fernet import Fernet
+import os
 
 class servidor:
 
@@ -26,7 +27,7 @@ class servidor:
 
 
     def cerradorConexion(self):
-        self.sk.close()
+        self.conn.close()
 
 
 
@@ -61,15 +62,17 @@ class database:
 
     def create_user(self, username, password, email):
         self.username = username
+        clave = Fernet.generate_key()
         self.contraseña = Fernet(clave).encrypt(password.encode())
         self.email = email
-        clave = Fernet.generate_key()
-        with open("clave.key", "wb") as archivo_clave:
-            archivo_clave.write(self.username + ":" + clave)
+        with open("clave.key", "a") as archivo_clave:
+            archivo_clave.write(self.username + ":" + clave.decode("utf-8")+"\n")
         pointer = self.conection.cursor()
         pointer.execute("USE users")
-        pointer.execute("INSERT INTO users (nombre, contraseña, token, email) VALUES (%s, %s, %s, %s)")%(self.username, self.contraseña, clave, self.email)
-
+        query1 = ("INSERT INTO usuarios (nombre, contraseña, email) VALUES (%s, %s, %s)")
+        query2 = (self.username, self.contraseña, self.email)
+        pointer.execute(query1, query2)
+        self.conection.commit()
 
     def forgot_password(self, username):
         with open("clave.key", "r") as fichero:
