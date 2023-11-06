@@ -9,8 +9,6 @@ class servidor:
         self.sk   = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sk.bind((HOST, PORT))
         self.sk.listen(nConexiones)
-        self.conn = None
-        self.addr = None
 
 
     def esperadorConexion(self):
@@ -18,12 +16,11 @@ class servidor:
 
 
     def recibidorDatos(self):
-        datos = self.conn.recv(1024)
-        return datos.decode('utf-8')
+        return self.conn.recv(1024).decode('utf-8')
   
 
     def enviadorDatos(self, data):
-        self.conn.send(("received %s" % data).encode('utf-8'))
+        self.conn.sendall(("received %s" % data).encode('utf-8'))
 
 
     def cerradorConexion(self):
@@ -40,12 +37,11 @@ class cliente:
 
 
     def enviadorInformacion(self, data):
-        self.sk.send(data.encode('utf-8'))
+        self.sk.sendall(data.encode('utf-8'))
 
 
     def recibidorInformacion(self):
-        data = self.sk.recv(1024)
-        return data.decode('utf-8')
+        return self.sk.recv(1024).decode('utf-8')
 
 
     def cerradorConexion(self):
