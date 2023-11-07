@@ -39,6 +39,17 @@ class cliente:
     def enviadorInformacion(self, data):
         self.sk.sendall(data.encode('utf-8'))
 
+        
+
+    def  enviadorArchivo(self, rutaArchivo):
+        file = open(str(rutaArchivo), "rb")
+        file_size = os.path.getsize(str(rutaArchivo))
+
+        self.sk.sendall(file)
+        self.sk.sendall(str(file_size))
+        self.sk.send(b"<END>")
+
+
 
     def recibidorInformacion(self):
         return self.sk.recv(1024).decode('utf-8')
