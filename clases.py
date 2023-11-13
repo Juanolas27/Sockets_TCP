@@ -28,7 +28,14 @@ class servidor:
             while data:
                 file.write(data)
                 data = self.conn.recv(1024)
-        
+    
+    def enviarArchivo(self, rutaArchivo):
+        with open (rutaArchivo, "rb") as file:
+            data = file.read(1024)
+            while data:
+                self.conn.send(data)
+                data = file.read(1024)
+
 
     def enviadorDatos(self, data):
         self.conn.sendall(("received %s" % data).encode('utf-8'))
@@ -66,14 +73,25 @@ class cliente:
         
         file.close()
 
-
-
+        
     def recibidorInformacion(self):
         return self.sk.recv(1024).decode('utf-8')
 
 
     def cerradorConexion(self):
         self.sk.close()
+    
+
+    def descargarArchivo(self, NombreArchivo):
+        ruta_guardado = input("Donde quieres que se guarde el archivo, escribe la ruta completa => ")
+
+        with open("{}\{}".format(ruta_guardado, NombreArchivo), "wb") as f:
+            data = self.sk.recv(1024)
+
+            while data:
+                f.write(data)
+                data = self.sk.recv(1024)
+
 
 
 

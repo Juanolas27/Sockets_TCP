@@ -31,7 +31,10 @@ while True:
 
     
     if data  ==  "3":
-        pass
+        servidor.enviadorDatos(data)
+        servidor.enviadorDatos("Escribe la ruta del archivo con el nombre incluido que quieres")
+        servidor.enviarArchivo(servidor.recibidorDatos())
+
     if data  ==  "4":
         pass
     if data  ==  "5":
