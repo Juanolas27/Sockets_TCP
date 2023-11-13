@@ -39,6 +39,12 @@ class servidor:
 
     def enviadorDatos(self, data):
         self.conn.sendall(("received %s" % data).encode('utf-8'))
+    
+    def borrarArchivo(self, ruta):
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        else:
+            print("The file doesn't exist")
 
 
     def cerradorConexion(self):
@@ -73,7 +79,7 @@ class cliente:
         
         file.close()
 
-        
+
     def recibidorInformacion(self):
         return self.sk.recv(1024).decode('utf-8')
 

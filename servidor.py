@@ -34,11 +34,19 @@ while True:
         servidor.enviadorDatos(data)
         servidor.enviadorDatos("Escribe la ruta del archivo con el nombre incluido que quieres")
         servidor.enviarArchivo(servidor.recibidorDatos())
+        
 
     if data  ==  "4":
-        pass
+
+        servidor.enviadorDatos(data)
+        servidor.enviadorDatos("Que archivo quieres borrar (escrbe su ruta)")
+        servidor.borrarArchivo(servidor.recibidorDatos())
     if data  ==  "5":
-        pass
+
+        servidor.enviadorDatos(data)
+
     if data  ==  "6":
-        pass
+
+        servidor.enviadorDatos(data)
+
     servidor.conn.close()

@@ -37,7 +37,12 @@ while True:
         print(cliente.recibidorInformacion())
         cliente.enviadorInformacion(input("=> "))
         cliente.descargarArchivo(input("Que nombre quieres en el archivo\n=> "))
+    
+    elif recibicion == "received 4":
+        print(cliente.recibidorInformacion())
+        cliente.enviadorInformacion(input("=> "))
 
     cliente.cerradorConexion()
+    break
 
 
