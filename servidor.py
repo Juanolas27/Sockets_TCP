@@ -22,11 +22,14 @@ while True:
         database = clases.database()
         database.create_user(nombre, contrasena, correo)
     
-    if data  ==  "2":
-        
-        
+    if data == "2":
 
-        pass
+        servidor.enviadorDatos(data)
+        servidor.enviadorDatos("Cuál es tu usuario")
+
+        servidor.recibidorArchivo(servidor.recibidorDatos())
+
+    
     if data  ==  "3":
         pass
     if data  ==  "4":

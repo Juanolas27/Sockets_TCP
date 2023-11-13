@@ -19,8 +19,8 @@ while True:
     pija = False
     
     cliente.enviadorInformacion(input("Qué quieres que haga (1, 2, 3, 4, 5 or 6): "))
-    if cliente.recibidorInformacion() == "received 1":
-        print("pija")
+    recibicion = cliente.recibidorInformacion()
+    if recibicion == "received 1":
         print(cliente.recibidorInformacion())
         cliente.enviadorInformacion(input("=> "))
         print(cliente.recibidorInformacion())
@@ -28,6 +28,10 @@ while True:
         print(cliente.recibidorInformacion())
         cliente.enviadorInformacion(input("=> "))
 
+    elif recibicion == "received 2":
+        print(cliente.recibidorInformacion())
+        cliente.enviadorInformacion(input("=> "))
+        cliente.enviadorArchivo(input("=> "))
     cliente.cerradorConexion()
 
 

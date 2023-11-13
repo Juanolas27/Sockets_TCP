@@ -1,4 +1,4 @@
-import  socket
+import socket
 import mysql.connector
 from cryptography.fernet import Fernet
 import os
@@ -6,7 +6,7 @@ import os
 class servidor:
 
     def __init__(self,  HOST, PORT, nConexiones):
-        self.sk   = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sk.bind((HOST, PORT))
         self.sk.listen(nConexiones)
 
@@ -17,7 +17,18 @@ class servidor:
 
     def recibidorDatos(self):
         return self.conn.recv(1024).decode('utf-8')
-  
+
+    def recibidorArchivo(self, NombreUsuario):
+        file_name = self.conn.recv(1024).decode('utf-8')
+        file_size = self.conn.recv(1024).decode('utf-8')
+        print(file_size)
+        with open("C:\Escritorio\Clase\Servidor\TCP\{}\{}".format(NombreUsuario, file_name), 'wb') as file:
+            data = self.conn.recv(1024)
+            
+            while data:
+                file.write(data)
+                data = self.conn.recv(1024)
+        
 
     def enviadorDatos(self, data):
         self.conn.sendall(("received %s" % data).encode('utf-8'))
@@ -39,15 +50,21 @@ class cliente:
     def enviadorInformacion(self, data):
         self.sk.sendall(data.encode('utf-8'))
 
-        
+
 
     def  enviadorArchivo(self, rutaArchivo):
-        file = open(str(rutaArchivo), "rb")
-        file_size = os.path.getsize(str(rutaArchivo))
+        file = open(rutaArchivo, "rb")
+        file_size = os.path.getsize(rutaArchivo)
+        file_name = input("Nombre del archivo => ")
+        self.sk.send(file_name.encode('utf-8'))
+        self.sk.send(str(file_size).encode('utf-8'))
+        file_data = file.read(1024)
 
-        self.sk.sendall(file)
-        self.sk.sendall(str(file_size))
-        self.sk.send(b"<END>")
+        while file_data:
+            self.sk.send(file_data)
+            file_data = file.read(1024)
+        
+        file.close()
 
 
 
