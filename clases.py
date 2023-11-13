@@ -2,6 +2,7 @@ import socket
 import mysql.connector
 from cryptography.fernet import Fernet
 import os
+from shutil import rmtree
 
 class servidor:
 
@@ -36,6 +37,10 @@ class servidor:
                 self.conn.send(data)
                 data = file.read(1024)
 
+    def creadorCarpeta(self, nombreUsuario, nombreCarpeta):
+        os.mkdir("C:\Escritorio\Clase\Servidor\TCP\{}\{}".format(nombreUsuario, nombreCarpeta))
+
+    
 
     def enviadorDatos(self, data):
         self.conn.sendall(("received %s" % data).encode('utf-8'))
@@ -49,6 +54,9 @@ class servidor:
 
     def cerradorConexion(self):
         self.conn.close()
+    
+    def borradorUsuario(self, usuario):
+        rmtree(usuario)
 
 
 
@@ -64,7 +72,7 @@ class cliente:
         self.sk.sendall(data.encode('utf-8'))
 
 
-
+    
     def  enviadorArchivo(self, rutaArchivo):
         file = open(rutaArchivo, "rb")
         file_size = os.path.getsize(rutaArchivo)

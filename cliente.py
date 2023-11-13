@@ -41,8 +41,17 @@ while True:
     elif recibicion == "received 4":
         print(cliente.recibidorInformacion())
         cliente.enviadorInformacion(input("=> "))
+    
+    elif recibicion == "received 5":
+        print(cliente.recibidorInformacion())
+        cliente.enviadorInformacion(input("=> "))
+        cliente.enviadorInformacion(input("=> "))
 
+    elif recibicion == "received 6":
+        print(cliente.recibidorInformacion())
+        cliente.enviadorInformacion(input("=> "))
     cliente.cerradorConexion()
+    
     break
 
 

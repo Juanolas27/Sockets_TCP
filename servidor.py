@@ -44,9 +44,12 @@ while True:
     if data  ==  "5":
 
         servidor.enviadorDatos(data)
+        servidor.enviadorDatos("Introduce tu usuario y después el nombre de la carpeta")
+        servidor.creadorCarpeta(servidor.recibidorDatos(),servidor.recibidorDatos())
 
     if data  ==  "6":
 
         servidor.enviadorDatos(data)
-
+        servidor.enviadorDatos("Introduce tu usuario")
+        servidor.borradorUsuario(servidor.recibidorDatos())
     servidor.conn.close()
